@@ -28,15 +28,15 @@
 //#define V6_330_NO_TITAN_NO_TMC 1
 // #define V6_400_TITAN_TMC 1
 // #define V6_400_NO_TITAN_TMC 1
-//#define V6_500_TITAN_TMC 1
+#define V6_500_TITAN_TMC 1
 
 // #define V5_330_TITAN_TMC 1
 // #define V5_330_TITAN_NO_TMC 1
 // #define V5_330_NO_TITAN_TMC 1
-#define V5_330_NO_TITAN_NO_TMC 1
+// #define V5_330_NO_TITAN_NO_TMC 1
 // #define XY3_V5_310_NO_TITAN_NO_TMC_NO_ABL 1
 
-#define MKS_UI
+//#define MKS_UI
 
 #if V6_330_TITAN_TMC
   #define MOTHERBOARD BOARD_CHITU3D_V6
@@ -96,10 +96,11 @@
   #define MOTHERBOARD BOARD_CHITU3D_V6
   #define WITH_TMC 1
   #define WITH_TITAN 1
-  #define X_BED_SIZE 500
-  #define Y_BED_SIZE 500
-  #define Z_MAX_POS 500
-  #define CUSTOM_MACHINE_NAME "Tronxy X5SA V6 500 Titan TMC"
+  //my bed is slightly oversize, for most XY-2 PRO this should be 255
+  #define X_BED_SIZE 258 
+  #define Y_BED_SIZE 258
+  #define Z_MAX_POS 240 
+  //This is due to the Titan extruder crashing into the top plastic above Z=240mm
 
 #elif V5_330_TITAN_TMC
   #define MOTHERBOARD BOARD_CHITU3D_V5
@@ -261,7 +262,7 @@
 #endif
 
 // Name displayed in the LCD "Ready" message and Info menu
-
+#define CUSTOM_MACHINE_NAME "Tronxy XY2 PRO"
 
 // Printer's unique ID, used by some programs to differentiate between machines.
 // Choose your own or use a service like http://www.uuidgenerator.net/version4
@@ -740,7 +741,7 @@
 // Uncomment one of these options to enable CoreXY, CoreXZ, or CoreYZ kinematics
 // either in the usual order or reversed
 #ifndef XY3_V5_310_NO_TITAN_NO_TMC_NO_ABL
-#define COREXY
+//#define COREXY //the XY-2 Pro isn't a Core XY machine
 #endif
 //#define COREXZ
 //#define COREYZ
@@ -895,7 +896,7 @@
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
 #if WITH_TMC && WITH_TITAN
-  #define DEFAULT_AXIS_STEPS_PER_UNIT   { 160, 160, 800, 764 }
+  #define DEFAULT_AXIS_STEPS_PER_UNIT   { 160, 160, 800, 795 } //Tweaked E-steps
 #elif WITH_TMC && !WITH_TITAN
   #define DEFAULT_AXIS_STEPS_PER_UNIT   { 160, 160, 800, 186 }
 #elif WITH_TITAN && !WITH_TMC
@@ -1248,19 +1249,9 @@
 // @section machine
 
 // Invert the stepper direction. Change (or reverse the motor connector) if an axis goes the wrong way.
-#ifdef XY3_V5_310_NO_TITAN_NO_TMC_NO_ABL
-  #define INVERT_X_DIR false
-#else
-  #define INVERT_X_DIR true
-#endif
-
-#define INVERT_Y_DIR true
-
-#ifdef XY3_V5_310_NO_TITAN_NO_TMC_NO_ABL
-  #define INVERT_Z_DIR true
-#else
-  #define INVERT_Z_DIR false
-#endif
+#define INVERT_X_DIR false
+#define INVERT_Y_DIR false
+#define INVERT_Z_DIR true
 
 // @section extruder
 
