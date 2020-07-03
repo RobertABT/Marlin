@@ -1,4 +1,18 @@
 # This repository is just a copy of the official Marlin, with Tronxy X5SA (and variants) pre-configured.
+This is based off of RhapsodyV's Fork of the Marlin code, but with the tweaks that I have found work for my personal XY-2 PRO with Titan Extruder,a V6 board, and TMC2225 Drivers. I will endeavour to keep this up to date and as a working build for this configuration. 
+
+
+I will also be putting tweaks to my settings in the firmware, so I don't have to change them every time I flash. 
+I will put these changes in a #ifdef RobertABT block, if your setup is different to mine please make sure you comment this out to prevent bed crashes or similar.
+
+
+So far these are: (unsure if these are being set correctly by my code)
+
+
+-Z offset, which due to a spring steel bed is high.  (if you do not change this your nozzle will probably crash into your bed)
+
+-Lower accel values to reduce ringing
+
 
 _Right now, this repo don't work with marlin auto build_
 
@@ -10,7 +24,7 @@ _Right now, this repo don't work with marlin auto build_
 // #define V6_330_NO_TITAN_NO_TMC 1
 // #define V6_400_TITAN_TMC 1
 // #define V6_400_NO_TITAN_TMC 1
-// #define V6_500_TITAN_TMC 1
+// #define V6_500_TITAN_TMC 1 //I've chosen this one
 
 // #define V5_330_TITAN_TMC 1
 // #define V5_330_TITAN_NO_TMC 1
@@ -19,7 +33,7 @@ _Right now, this repo don't work with marlin auto build_
 // #define XY3_V5_310_NO_TITAN_NO_TMC_NO_ABL 1
 
 //to use the new UI
-#define MKS_UI
+#define MKS_UI //this didn't work for my machine, so it is currently disabled/commented out
 ```
 
 # Marlin 3D Printer Firmware
