@@ -21,6 +21,10 @@
  */
 #pragma once
 
+//Make sure the next line is commented out if you aren't building for a 
+//spring steel bed, don't want my accel values, etc etc etc
+#define ROBERTABT 1
+
 //JUST uncomment the option for your machine
 //#define V6_330_TITAN_TMC 1
 //#define V6_330_TITAN_NO_TMC 1
@@ -97,9 +101,15 @@
   #define WITH_TMC 1
   #define WITH_TITAN 1
   //my bed is slightly oversize, for most XY-2 PRO this should be 255
-  #define X_BED_SIZE 258 
-  #define Y_BED_SIZE 258
-  #define Z_MAX_POS 240 
+  #ifdef ROBERTABT
+    #define X_BED_SIZE 258 
+    #define Y_BED_SIZE 258
+    #define Z_MAX_POS 240
+  #else
+    #define X_BED_SIZE 255 
+    #define Y_BED_SIZE 255
+    #define Z_MAX_POS 240
+  #endif
   //This is due to the Titan extruder crashing into the top plastic above Z=240mm
 
 #elif V5_330_TITAN_TMC
@@ -262,7 +272,9 @@
 #endif
 
 // Name displayed in the LCD "Ready" message and Info menu
-#define CUSTOM_MACHINE_NAME "Tronxy XY2 PRO"
+#ifdef ROBERTABT
+  #define CUSTOM_MACHINE_NAME "RobertABT Tronxy XY2 PRO"
+#endif
 
 // Printer's unique ID, used by some programs to differentiate between machines.
 // Choose your own or use a service like http://www.uuidgenerator.net/version4
@@ -927,7 +939,11 @@
  * Override with M201
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 1500, 1500, 100, 5000 }
+#ifdef ROBERTABT
+  #define DEFAULT_MAX_ACCELERATION      { 800, 800, 100, 5000 }
+#else
+  #define DEFAULT_MAX_ACCELERATION      { 1500, 1500, 100, 5000 }
+#endif
 
 //#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
@@ -942,7 +958,12 @@
  *   M204 R    Retract Acceleration
  *   M204 T    Travel Acceleration
  */
-#define DEFAULT_ACCELERATION          1500    // X, Y, Z and E acceleration for printing moves
+#ifdef ROBERTABT
+  #define DEFAULT_ACCELERATION          800    // X, Y, Z and E acceleration for printing moves
+#else
+  #define DEFAULT_ACCELERATION          1500    // X, Y, Z and E acceleration for printing moves
+#endif
+
 #define DEFAULT_RETRACT_ACCELERATION  1500    // E acceleration for retracts
 #define DEFAULT_TRAVEL_ACCELERATION   1500    // X, Y, Z acceleration for travel (non printing) moves
 
@@ -1147,7 +1168,13 @@
  *
  * Specify a Probe position as { X, Y, Z }
  */
-#define NOZZLE_TO_PROBE_OFFSET { -35, -0, 0 }
+#ifdef ROBERTABT
+  #define NOZZLE_TO_PROBE_OFFSET { -35, -0, -5.70 }
+#else
+  #define NOZZLE_TO_PROBE_OFFSET { -35, -0, 0 }
+#endif
+
+
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
